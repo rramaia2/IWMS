@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="products.css">
+    <title>Product Management</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Product Management</h1>
+    </div>
+    
+    <div class="main-content">
+        <div class="add-product">
+            <h2>Add Product</h2>
+            <form id="add-product-form">
+                <input type="text" name="productName" placeholder="Product Name" required>
+                <input type="number" name="price" placeholder="Price" required>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+    
+        <div class="product-list">
+            <h2>Product List</h2>
+            <ul id="product-list">
+                <!-- Product items will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="products.js"></script>
+    <script>
+        // Product management JavaScript logic
+        const addProductForm = document.getElementById('add-product-form');
+        const productList = document.getElementById('product-list');
+
+        // Function to add a new product
+        function addProduct(product) {
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${product.name} - $${product.price}</span><button class="delete-button">Delete</button>`;
+            li.querySelector('.delete-button').addEventListener('click', () => {
+                // Call the server to remove the product
+                deleteProduct(product.id);
+                li.remove();
+            });
+            productList.appendChild(li);
+        }
+
+        // Function to handle form submission
+        addProductForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const productName = addProductForm.querySelector('input[name="productName"]').value;
+            const price = addProductForm.querySelector('input[name="price"]').value;
+
+            // Call the server to add the product
+            addProductToServer(productName, price);
+            addProductForm.reset();
+        });
+
+        // Function to add a product to the server
+        function addProductToServer(name, price) {
+            fetch('/add-product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ productName: name, price: price }),
+            })
+                .then((response) => response.text())
+                .then((message) => {
+                    console.log(message);
+                    // Assuming the product was successfully added, add it to the list
+                    addProduct({ name, price });
+                })
+                .catch((error) => console.error(error));
+        }
+
+        // Function to delete a product on the server
+        function deleteProduct(productId) {
+            // Call the server to delete the product (you should implement this on the server)
+            // For example, you can create a route to handle product deletion by ID
+        }
+
+        // Function to get products from the server
+        function getProductsFromServer() {
+            fetch('/get-products')
+                .then((response) => response.json())
+                .then((products) => {
+                    products.forEach((product) => {
+                        addProduct(product);
+                    });
+                })
+                .catch((error) => console.error(error));
+        }
+
+        // Load existing products from the server on page load
+        getProductsFromServer();
+    </script>
+</body>
+</html>

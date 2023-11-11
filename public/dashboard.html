@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Inventory and Warehouse Management</title>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="Logo" class="logo">
+        <div class="search-bar">
+          <input type="text" placeholder="Search">
+          <button type="submit">Search</button>
+        </div>
+        <div class="user-profile">
+          <img src="user.png" alt="User Profile" class="user-profile-image">
+          <span>Raghava</span>
+        </div>
+      </div>
+    
+      <div class="sidebar">
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="#">Orders</a></li>
+          <li><a href="#">Customers</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </div>
+    
+      <div class="main-content">
+        <div class="widgets">
+          <div class="widget">
+            <h2>Sales</h2>
+            <div class="widget-content">
+              <p>Total Sales: $12,345.67</p>
+              <p>Sales this Month: $5,678.90</p>
+            </div>
+          </div>
+    
+          <div class="widget">
+            <h2>Orders</h2>
+            <div class="widget-content">
+              <p>Total Orders: 1,234</p>
+              <p>Orders this Month: 567</p>
+            </div>
+          </div>
+    
+          <div class="widget">
+            <h2>Customers</h2>
+            <div class="widget-content">
+              <p>Total Customers: 1,000</p>
+              <p>New Customers this Month: 123</p>
+            </div>
+          </div>
+        </div>
+    
+        <div class="charts">
+          <div class="chart">
+            <canvas id="salesChart"></canvas>
+          </div>
+    
+          <div class="chart">
+            <canvas id="ordersChart"></canvas>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
