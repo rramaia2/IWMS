@@ -1,3 +1,5 @@
+// server.js
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -9,6 +11,9 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
 
 const db = mysql.createConnection({
     host: '127.0.0.1',
@@ -67,8 +72,8 @@ app.post('/dashboard', async (req, res) => {
             const match = await bcrypt.compare(password, results[0].password);
 
             if (match) {
-                // Redirect to the dashboard
-                res.redirect('/dashboard.html');
+                // Redirect to the dashboard and pass the username as a parameter
+                res.render('dashboard', { username });
             } else {
                 res.send('Login failed. Please check your credentials.');
             }
@@ -101,6 +106,22 @@ app.post('/add-product', (req, res) => {
         } else {
             console.log('Product added to the database successfully');
             res.send('Product added successfully');
+        }
+    });
+});
+
+// Route to delete a product by ID
+app.delete('/delete-product/:product_id', (req, res) => {
+    const productId = req.params.product_id;  // Corrected parameter name
+
+    const sql = 'DELETE FROM products WHERE product_id = ?';
+    db.query(sql, [productId], (err, result) => {
+        if (err) {
+            console.error('Error deleting product from the database: ', err);
+            res.status(500).send('Error deleting product from the database');
+        } else {
+            console.log('Product deleted from the database successfully');
+            res.send('Product deleted successfully');
         }
     });
 });

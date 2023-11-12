@@ -1,72 +1,151 @@
-body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+/* CSS - Variant 1 */
+/* Background: Orange */
+/* Text Color: White */
+/* Accent Color: Grey */
+/* Main Color: Dark Blue */
+/* Footer Color: Black */
 
-  .header {
-    background-color: #46764e;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .logo {
-    width: 100px;
-  }
-  
-  .search-bar {
-    display: flex;
-    align-items: center;
-  }
-  
-  input[type="text"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    width: 200px;
-  }
-  
-  button {
-    padding: 5px 10px;
-    border: 1px solid #007bff;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .user-profile {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-profile-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  
-  .sidebar {
-    background-color: #212529;
-    color: white;
-    padding: 20px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  
-  a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
+/* Your existing dashboard styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #FFA500; /* Orange */
+  padding: 10px;
+  color: #fff; /* White */
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 50px;
+}
+
+/* ... */
+.user-profile {
+  position: relative; /* Required to position the dropdown */
+  align-items: center;
+  color: #fff;
+}
+
+.user-profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.logout-content {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: -10px;
+  background: #000;
+  color: #fff;
+  padding: 10px;
+}
+
+.logout-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.logout-content li {
+  cursor: pointer;
+}
+
+.logout-content a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.logout-content a:hover {
+  text-decoration: underline;
+}
+/* ... */
+
+
+input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  width: 200px;
+  border-radius: 4px;
+}
+
+.button {
+  padding: 8px 15px;
+  border: 1px solid #808080; /* Grey */
+  background-color: #808080;
+  color: #fff;
+  width: 150px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.sidebar button {
+  padding: 8px 15px;
+  font-size: 18px;
+  border: 1px solid #00008B; /* Dark Blue */
+  background-color: #00008B;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 90%;
+}
+
+.content-area {
+  padding: 20px;
+  background-color: #ecf0f1;
+  color: #333;
+}
+
+.main-content {
+  display: flex;
+}
+
+.sidebar {
+  width: 260px;
+  background: #808080; /* Grey */
+  color: #fff;
+  padding: 10px;
+  height: 583px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 6px;
+}
+
+.sidebar li {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.content-area {
+  width: calc(100% - 260px);
+  margin-left: 260px;
+}
+
+footer.bottom {
+  background-color: #000; /* Black */
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+}
+
+footer.bottom a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer.bottom a:hover {
+  text-decoration: underline;
+}

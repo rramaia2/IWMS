@@ -1,3 +1,5 @@
+<!-- products.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +31,6 @@
         </div>
     </div>
 
-    <script src="products.js"></script>
     <script>
         // Product management JavaScript logic
         const addProductForm = document.getElementById('add-product-form');
@@ -38,10 +39,11 @@
         // Function to add a new product
         function addProduct(product) {
             const li = document.createElement('li');
-            li.innerHTML = `<span>${product.name} - $${product.price}</span><button class="delete-button">Delete</button>`;
+            li.innerHTML = `<span>${product.name} - $${product.price}</span><button class="delete-button" data-id="${product.product_id}">Delete</button>`;
             li.querySelector('.delete-button').addEventListener('click', () => {
                 // Call the server to remove the product
-                deleteProduct(product.id);
+                const productId = li.querySelector('.delete-button').getAttribute('data-id');
+                deleteProduct(productId);
                 li.remove();
             });
             productList.appendChild(li);
@@ -71,15 +73,21 @@
                 .then((message) => {
                     console.log(message);
                     // Assuming the product was successfully added, add it to the list
-                    addProduct({ name, price });
+                    getProductsFromServer();
                 })
                 .catch((error) => console.error(error));
         }
 
         // Function to delete a product on the server
         function deleteProduct(productId) {
-            // Call the server to delete the product (you should implement this on the server)
-            // For example, you can create a route to handle product deletion by ID
+            fetch(`/delete-product/${productId}`, {
+                method: 'DELETE',
+            })
+                .then((response) => response.text())
+                .then((message) => {
+                    console.log(message);
+                })
+                .catch((error) => console.error(error));
         }
 
         // Function to get products from the server
@@ -87,6 +95,9 @@
             fetch('/get-products')
                 .then((response) => response.json())
                 .then((products) => {
+                    // Clear the existing list before adding products
+                    productList.innerHTML = '';
+                    
                     products.forEach((product) => {
                         addProduct(product);
                     });
