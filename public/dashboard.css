@@ -35,6 +35,11 @@ body {
   position: relative; /* Required to position the dropdown */
   align-items: center;
   color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .user-profile-image {
@@ -44,10 +49,6 @@ body {
 }
 
 .logout-content {
-  display: none;
-  position: absolute;
-  top: 50px;
-  right: -10px;
   background: #000;
   color: #fff;
   padding: 10px;
@@ -70,24 +71,17 @@ body {
 .logout-content a:hover {
   text-decoration: underline;
 }
+
 /* ... */
-
-
-input[type="text"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  width: 200px;
-  border-radius: 4px;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.button {
-  padding: 8px 15px;
-  border: 1px solid #808080; /* Grey */
-  background-color: #808080;
-  color: #fff;
-  width: 150px;
-  cursor: pointer;
-  border-radius: 4px;
+.table-container,
+.graph-container {
+  flex: 1;
 }
 
 .sidebar button {
@@ -105,10 +99,22 @@ input[type="text"] {
   padding: 20px;
   background-color: #ecf0f1;
   color: #333;
+  width: 100%;
 }
 
 .main-content {
   display: flex;
+}
+
+.canvas-container {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+canvas {
+  width: 100%;
+  height: 400px; /* Make the canvas responsive *//* Maintain aspect ratio */
 }
 
 .sidebar {
@@ -116,7 +122,7 @@ input[type="text"] {
   background: #808080; /* Grey */
   color: #fff;
   padding: 10px;
-  height: 583px;
+  height: auto;
 }
 
 .sidebar ul {
@@ -127,11 +133,6 @@ input[type="text"] {
 .sidebar li {
   padding: 10px;
   margin-bottom: 10px;
-}
-
-.content-area {
-  width: calc(100% - 260px);
-  margin-left: 260px;
 }
 
 footer.bottom {

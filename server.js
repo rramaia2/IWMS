@@ -73,7 +73,8 @@ app.post('/dashboard', async (req, res) => {
 
             if (match) {
                 // Redirect to the dashboard and pass the username as a parameter
-                res.render('dashboard', { username });
+                // Additionally, pass the product data to the dashboard
+                res.render('dashboard', { username, products: await getProductsFromDatabase() });
             } else {
                 res.send('Login failed. Please check your credentials.');
             }
@@ -83,9 +84,20 @@ app.post('/dashboard', async (req, res) => {
     });
 });
 
-// Route to serve the product management page
+// Route for user logout
+app.get('/logout', (req, res) => {
+    // Redirect to the login page
+    res.redirect('/public/index.html');
+});
+
+// Route to render the products page
 app.get('/products', (req, res) => {
     res.sendFile(__dirname + '/public/products.html');
+});
+
+// Add a route to render the dashboard page
+app.get('/dashboard', (req, res) => {
+    res.sendFile(__dirname + '/public/dashboard.html');
 });
 
 // Route to add a product
@@ -112,7 +124,7 @@ app.post('/add-product', (req, res) => {
 
 // Route to delete a product by ID
 app.delete('/delete-product/:product_id', (req, res) => {
-    const productId = req.params.product_id;  // Corrected parameter name
+    const productId = req.params.product_id;
 
     const sql = 'DELETE FROM products WHERE product_id = ?';
     db.query(sql, [productId], (err, result) => {
@@ -127,18 +139,25 @@ app.delete('/delete-product/:product_id', (req, res) => {
 });
 
 // Route to get the product list from the database
-app.get('/get-products', (req, res) => {
-    // Retrieve products from the database
-    const sql = 'SELECT * FROM products';
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error getting product list from the database: ', err);
-            res.status(500).send('Error getting product list from the database');
-        } else {
-            res.json(results);
-        }
-    });
+app.get('/get-products', async (req, res) => {
+    const products = await getProductsFromDatabase();
+    res.json(products);
 });
+
+// Function to get products from the database
+async function getProductsFromDatabase() {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM products';
+        db.query(sql, (err, results) => {
+            if (err) {
+                console.error('Error getting product list from the database: ', err);
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

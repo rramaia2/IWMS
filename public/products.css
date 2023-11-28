@@ -1,81 +1,134 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
+/* Styles for the header to match the dashboard */
 .header {
-    background-color: #0074d9;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
+  background-color: #FFA500; /* Orange */
+  padding: 10px;
+  color: #fff; /* White */
 }
 
-h1 {
-    margin: 0;
-    padding: 0;
+.header h1 {
+  margin: 0;
+  padding: 0;
 }
 
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 50px;
+}
+
+.user-profile {
+  position: relative; /* Required to position the dropdown */
+  align-items: center;
+  color: #fff;
+  display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.logout-content {
+  /* display: none; */
+  
+  background: #000;
+  color: #fff;
+  padding: 10px;
+}
+
+.logout-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.logout-content li {
+  cursor: pointer;
+}
+
+.logout-content a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.logout-content a:hover {
+  text-decoration: underline;
+}
+
+/* Styles for the sidebar to match the dashboard */
 .main-content {
-    margin: 20px;
+  display: flex; /* Ensuring main-content behaves as a flex container */
 }
 
-h2 {
-    background-color: #0074d9;
-    color: #fff;
-    padding: 5px;
+.sidebar {
+  width: 260px;
+  background: #808080; /* Grey */
+  color: #fff;
+  padding: 10px;
+  height: 583px;
 }
 
-.add-product, .product-list {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.sidebar ul {
+  list-style: none;
+  padding: 6px;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.sidebar li {
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #0074d9;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.content-area {
+  padding: 20px;
+  background-color: #ecf0f1;
+  color: #333;
+  width: 100%
+}
+.header {
+  background-color: #FFA500; /* Orange from dashboard */
+  padding: 10px;
+  color: #fff; /* White from dashboard */
 }
 
-button:hover {
-    background-color: #0056b3;
+/* To match the sidebar button styles from dashboard */
+.sidebar button {
+  padding: 8px 15px;
+  font-size: 18px;
+  border: 1px solid #00008B; /* Dark Blue from dashboard */
+  background-color: #00008B;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 90%;
+}
+footer.bottom {
+  background-color: #000; /* Black */
+  color: #fff;
+  padding: 15px;
+  text-align: center;
 }
 
-ul {
-    list-style: none;
-    padding: 0;
+footer.bottom a {
+  color: #fff;
+  text-decoration: none;
 }
 
-li {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 5px 0;
-}
-
-li span {
-    flex: 1;
-}
-
-.delete-button {
-    background-color: #ff6347;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+footer.bottom a:hover {
+  text-decoration: underline;
 }
