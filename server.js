@@ -95,10 +95,53 @@ app.get('/products', (req, res) => {
     res.sendFile(__dirname + '/public/products.html');
 });
 
-// Add a route to render the dashboard page
-app.get('/dashboard', (req, res) => {
-    res.sendFile(__dirname + '/public/dashboard.html');
+// Route to render the customer page
+app.get('/customer', (req, res) => {
+    res.sendFile(__dirname + '/public/customer.html');
 });
+
+// Route to render the orders page
+app.get('/orders', (req, res) => {
+    res.sendFile(__dirname + '/public/orders.html');
+});
+
+// Route to place an order
+app.post('/place-order', (req, res) => {
+    const { productName, quantity } = req.body;
+
+    // Insert the order into the database
+    const sql = 'INSERT INTO orders (product_name, quantity) VALUES (?, ?)';
+    db.query(sql, [productName, quantity], (err, result) => {
+        if (err) {
+            console.error('Error placing order in the database: ', err);
+            res.status(500).send('Error placing order in the database');
+        } else {
+            console.log('Order placed in the database successfully');
+            res.send('Order placed successfully');
+        }
+    });
+});
+
+// Route to get the order list from the database
+app.get('/get-orders', async (req, res) => {
+    const orders = await getOrdersFromDatabase();
+    res.json(orders);
+});
+
+// Function to get orders from the database
+async function getOrdersFromDatabase() {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM orders';
+        db.query(sql, (err, results) => {
+            if (err) {
+                console.error('Error getting order list from the database: ', err);
+                reject(err);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
 
 // Route to add a product
 app.post('/add-product', (req, res) => {
@@ -158,6 +201,8 @@ async function getProductsFromDatabase() {
         });
     });
 }
+
+// ... existing code ...
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
