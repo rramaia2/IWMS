@@ -145,16 +145,17 @@ async function getOrdersFromDatabase() {
 
 // Route to add a product
 app.post('/add-product', (req, res) => {
-    const { productName, price } = req.body;
+    const { productName, price, quantity } = req.body;
 
     const product = {
         name: productName,
         price: parseFloat(price),
+        quantity: parseInt(quantity),
     };
 
     // Insert the product into the database
-    const sql = 'INSERT INTO products (name, price) VALUES (?, ?)';
-    db.query(sql, [product.name, product.price], (err, result) => {
+    const sql = 'INSERT INTO products (name, price, quantity) VALUES (?, ?, ?)';
+    db.query(sql, [product.name, product.price, product.quantity], (err, result) => {
         if (err) {
             console.error('Error adding product to the database: ', err);
             res.status(500).send('Error adding product to the database');
@@ -185,6 +186,22 @@ app.delete('/delete-product/:product_id', (req, res) => {
 app.get('/get-products', async (req, res) => {
     const products = await getProductsFromDatabase();
     res.json(products);
+});
+
+// Route to get product availability
+app.get('/get-product-availability', async (req, res) => {
+    try {
+        const products = await getProductsFromDatabase();
+        const availability = products.map((product) => ({
+            product_id: product.product_id,
+            name: product.name,
+            availability: product.quantity > 0 ? 'In Stock' : 'Out of Stock',
+        }));
+        res.json(availability);
+    } catch (error) {
+        console.error('Error getting product availability: ', error);
+        res.status(500).send('Error getting product availability');
+    }
 });
 
 // Function to get products from the database
